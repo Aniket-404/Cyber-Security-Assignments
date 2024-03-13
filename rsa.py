@@ -1,68 +1,81 @@
-import random
+# import sympy
 
-def is_prime(num):
-    if num <= 1:
-        return False
-    if num <= 3:
-        return True
-    if num % 2 == 0 or num % 3 == 0:
-        return False
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+# p = int(input("Enter the first prime number: "))
+# q = int(input("Enter the second prime number: "))
+# message = input("Enter the message: ")
+# decimal_message = int.from_bytes(message.encode(), 'big')
 
-def generate_prime_number():
-    prime = False
-    while not prime:
-        num = random.randint(2**7, 2**8)
-        if is_prime(num):
-            prime = True
-    return num
+# print(sympy.isprime(p))
+# print(sympy.isprime(q))
 
-def multiplicative_inverse(e, phi):
-    for d in range(1, phi):
-        if (d * e) % phi == 1:
-            return d
-    return None
+# while p != q:
+#     n = p * q
+#     t = (p - 1) * (q - 1)
+#     break
 
-def generate_keypair():
-    p = generate_prime_number()
-    q = generate_prime_number()
-    n = p * q
-    phi = (p - 1) * (q - 1)
+# for i in range(2, t):
+#     # e=t-1
+#     e = 0
+#     if e % t == 0:
+#         e = i
 
-    e = random.randint(1, phi)
-    while True:
-        if is_prime(e) and phi % e != 0:
-            break
-        e = random.randint(1, phi)
+# d = pow(e, -1, t)
 
-    d = multiplicative_inverse(e, phi)
+# s = 0
+# while True:
+#     if (s * e) % t == 1:
+#         x = s
+#         break  # Fixed to ensure loop breaks when condition is met
+#     s += 1
 
-    return ((e, n), (d, n))
+# c_text = 0  # Define c_text outside the conditional block
 
-def encrypt(public_key, plaintext):
-    key, n = public_key
-    encrypted_msg = [pow(ord(char), key, n) for char in plaintext]
-    return encrypted_msg
+# if decimal_message < n:
+#     c_text = (decimal_message ** e) % n
+#     decimal_message = (c_text ** d) % n  # Moved this line inside the if block
 
-def decrypt(private_key, ciphertext):
-    key, n = private_key
-    decrypted_msg = [chr(pow(char, key, n)) for char in ciphertext]
-    return ''.join(decrypted_msg)
+# if c_text is not None:  # Check if c_text is defined before printing
+#     print("cipher text: ", c_text)
+#     decrypted_message = decimal_message.to_bytes((decimal_message.bit_length() + 7) // 8, 'big').decode()
+#     print("decimal message: ", decimal_message)
+#     print("decrypted message: ", decrypted_message)
+# else:
+#     print("Error: Unable to compute cipher text.")
 
-if __name__ == "__main__":
-    public, private = generate_keypair()
-    print("Public key:", public)
-    print("Private key:", private)
 
-    message = "Hello"
-    encrypted_msg = encrypt(public, message)
-    print("Encrypted message:", encrypted_msg)
+import sympy
+p=int(input("Enter the first prime number: "))
+q=int(input("Enter the second prime number: "))
+message = input("Enter the message: ")
+decimal_message = int.from_bytes(message.encode(), 'big')
+print(sympy.isprime(p))
+print(sympy.isprime(q))
+while p!=q:
+    n=p*q
+    t=(p-1)*(q-1)
+    break
+for i in range(2,t):
+    #e=t-1
+    e=0
+    if e%t==0:
+        e=i
 
-    decrypted_msg = decrypt(private, encrypted_msg)
-    print("Decrypted message:", decrypted_msg)
 
+d=pow(e, -1, t)
+
+s=0
+while True:
+    if (s*e)%t==1:
+        x=s
+    break
+
+c_text = 0
+
+if decimal_message<n:
+    c_text=(decimal_message**e)%n
+    decimal_message=(c_text**d)%n
+
+print("cipher text: ",c_text)
+decrypted_message = decimal_message.to_bytes((decimal_message.bit_length() + 7) // 8, 'big').decode()
+print("decimal message: ", decimal_message)
+print("decrypted message: ", decrypted_message)
