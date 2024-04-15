@@ -13,7 +13,6 @@ print(f"Public Key obtained by A:{x}")
 print(f"Public Key obtained by B:{y}")
 
 #Compute symmetric keys-
-
 ka = (y ** a) % P
 kb = (x ** b) % P
 
