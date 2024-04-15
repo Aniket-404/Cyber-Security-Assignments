@@ -1,5 +1,4 @@
 #DIFFIE HELLMAN KEY EXCHANGE
-
 P = int(input("Enter Public Key P: ")) 
 G = int(input("Enter Public Key G: ")) 
 
