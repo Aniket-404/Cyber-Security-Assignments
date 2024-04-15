@@ -1,5 +1,4 @@
 class SimplifiedAES(object):
-    """Simplified AES is a simplified version of AES algorithm"""
 
     # S-Box
     sBox = [
