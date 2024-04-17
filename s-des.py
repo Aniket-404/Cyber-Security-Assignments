@@ -1,3 +1,5 @@
+#s-des program
+
 def p10_permutation(key):
     p = []
     x = [3, 5, 2, 7, 4, 10, 1, 9, 8, 6]
